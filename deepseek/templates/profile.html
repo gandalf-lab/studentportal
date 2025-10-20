@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - Student Portal{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>👤 Personal Information</h2>
+    <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div class="info-item" style="padding: 15px; background: #f7fafc; border-radius: 10px;">
+            <strong>Student ID:</strong><br>{{ student.student_id }}
+        </div>
+        <div class="info-item" style="padding: 15px; background: #f7fafc; border-radius: 10px;">
+            <strong>Email:</strong><br>{{ student.email }}
+        </div>
+        <div class="info-item" style="padding: 15px; background: #f7fafc; border-radius: 10px;">
+            <strong>Enrollment Year:</strong><br>{{ student.enrollment_year }}
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>✏ Update Profile</h2>
+    <form method="POST" action="{{ url_for('update_profile') }}">
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" name="first_name" value="{{ student.first_name }}" required>
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" name="last_name" value="{{ student.last_name }}" required>
+        </div>
+        <div class="form-group">
+            <label>Major:</label>
+            <input type="text" name="major" value="{{ student.major }}">
+        </div>
+        <button type="submit" class="btn">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

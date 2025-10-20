@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Course Registration - Student Portal{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📚 My Registered Courses</h2>
+    {% if my_courses %}
+        <div class="courses-grid" style="display: grid; gap: 20px; margin-top: 20px;">
+            {% for course in my_courses %}
+            <div class="course">
+                <div style="display: flex; justify-content: between; align-items: start;">
+                    <div style="flex: 1;">
+                        <h3>{{ course.course_code }} - {{ course.course_name }}</h3>
+                        <p><strong>Instructor:</strong> {{ course.instructor }}</p>
+                        <p><strong>Schedule:</strong> {{ course.schedule_days }}, {{ course.schedule_time }}</p>
+                        <p><strong>Credits:</strong> {{ course.credits }}</p>
+                        <p><strong>Status:</strong> <span style="color: #38a169;">✅ Registered</span></p>
+                    </div>
+                    <a href="{{ url_for('drop_course', course_id=course.id) }}" class="btn danger" 
+                       onclick="return confirm('Are you sure you want to drop this course?')">
+                       Drop Course
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 40px; color: #718096;">
+            <h3>No courses registered yet</h3>
+            <p>Browse available courses below and register for your classes.</p>
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 20px;">
+        <h2>🎯 Available Courses</h2>
+        <input type="text" id="courseSearch" placeholder="Search courses..." 
+               style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; width: 300px;"
+               onkeyup="searchCourses()">
+    </div>
+    
+    <div class="courses-grid" style="display: grid; gap: 20px;">
+        {% for course in all_courses %}
+        <div class="course">
+            <div style="display: flex; justify-content: between; align-items: start;">
+                <div style="flex: 1;">
+                    <h3>{{ course.course_code }} - {{ course.course_name }}</h3>
+                    <p><strong>Instructor:</strong> {{ course.instructor }}</p>
+                    <p><strong>Schedule:</strong> {{ course.schedule_days }}, {{ course.schedule_time }}</p>
+                    <p><strong>Credits:</strong> {{ course.credits }}</p>
+                    <p><strong>Enrollment:</strong> 
+                        <span class="{% if course.current_enrollment >= course.max_capacity %}text-danger{% else %}text-success{% endif %}">
+                            {{ course.current_enrollment }}/{{ course.max_capacity }}
+                        </span>
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    {% if course.current_enrollment >= course.max_capacity %}
+                        <span class="btn" style="background: #a0aec0; cursor: not-allowed;">Course Full</span>
+                    {% else %}
+                        <a href="{{ url_for('register_course', course_id=course.id) }}" class="btn">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+function searchCourses() {
+    const input = document.getElementById('courseSearch');
+    const filter = input.value.toLowerCase();
+    const courses = document.querySelectorAll('.course');
+    
+    courses.forEach(course => {
+        const text = course.textContent.toLowerCase();
+        if (text.includes(filter)) {
+            course.style.display = 'block';
+            setTimeout(() => course.style.opacity = '1', 50);
+        } else {
+            course.style.opacity = '0';
+            setTimeout(() => course.style.display = 'none', 300);
+        }
+    });
+}
+</script>
+{% endblock %}
+{% endblock %}

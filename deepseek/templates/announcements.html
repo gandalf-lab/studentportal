@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements - Student Portal{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📢 University Announcements</h2>
+    
+    {% if announcements %}
+    <div class="announcements-list">
+        {% for announcement in announcements %}
+        <div class="announcement {% if announcement.is_important %}announcement-important{% else %}announcement-normal{% endif %}">
+            
+            <div class="announcement-header">
+                <div class="announcement-content">
+                    <h3 class="announcement-title">
+                        {% if announcement.is_important %}🚨 {% endif %}{{ announcement.title }}
+                    </h3>
+                    <div class="announcement-meta">
+                        📅 Posted by <strong>{{ announcement.author }}</strong> on 
+                        {{ announcement.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+                    </div>
+                    <p class="announcement-text">{{ announcement.content }}</p>
+                </div>
+                {% if announcement.is_important %}
+                <span class="importance-badge">IMPORTANT</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 60px 20px; color: #718096;">
+        <div style="font-size: 4rem; margin-bottom: 20px;">📣</div>
+        <h3>No announcements at this time</h3>
+        <p>Check back later for updates from the university.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

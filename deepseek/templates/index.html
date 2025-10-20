@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}University Student Portal{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 60px 20px;">
+    <div style="font-size: 5rem; margin-bottom: 20px;">🎓</div>
+    <h1 style="font-size: 3rem; margin-bottom: 20px; background: linear-gradient(135deg, #667eea, #764ba2); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent;">
+    Welcome to University Portal
+</h1>
+    <p style="font-size: 1.2rem; color: #718096; max-width: 600px; margin: 0 auto 40px;">
+        Your gateway to academic excellence. Manage courses, track grades, and stay connected with campus life.
+    </p>
+    
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <a href="{{ url_for('login') }}" class="btn" style="padding: 15px 40px; font-size: 1.1rem;">
+            🚀 Student Login
+        </a>
+        <a href="{{ url_for('register') }}" class="btn secondary" style="padding: 15px 40px; font-size: 1.1rem;">
+            📝 New Registration
+        </a>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 80px;">
+        <div class="dashboard-card">
+            <div style="font-size: 3rem; margin-bottom: 15px;">📚</div>
+            <h3>Course Management</h3>
+            <p>Register for classes and manage your schedule with ease</p>
+        </div>
+        <div class="dashboard-card">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
+            <h3>Grade Tracking</h3>
+            <p>Monitor your academic progress and performance</p>
+        </div>
+        <div class="dashboard-card">
+            <div style="font-size: 3rem; margin-bottom: 15px;">📢</div>
+            <h3>Campus Updates</h3>
+            <p>Stay informed with latest university announcements</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

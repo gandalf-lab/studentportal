@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Portal{% endblock %}</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1 style="background: linear-gradient(135deg, #667eea, #764ba2); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; font-size: 2.5rem; text-align: center;">
+    🎓 University Student Portal
+            </h1>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="container">
+        <div class="nav">
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('profile') }}">My Profile</a>
+                <a href="{{ url_for('courses') }}">Course Registration</a>
+                <a href="{{ url_for('grades') }}">Grades</a>
+                <a href="{{ url_for('announcements') }}">Announcements</a>
+            </div>
+            <div class="nav-user">
+                <span style="color: #4a5568; margin-right: 15px;">Hello, {{ session.get('student_name', 'Student') }}</span>
+                <a href="{{ url_for('logout') }}" class="btn secondary">Logout</a>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Main Content -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Student Portal{% endblock %}
+
+{% block content %}
+<div class="welcome card">
+    <h2>Welcome, {{ student_name }}!</h2>
+    <p>Manage your academic journey with our comprehensive student portal.</p>
+</div>
+
+<div class="dashboard-cards">
+    <div class="dashboard-card">
+        <h3>📊 My Profile</h3>
+        <p>View and update your personal information</p>
+        <a href="{{ url_for('profile') }}" class="btn">View Profile</a>
+    </div>
+    
+    <div class="dashboard-card">
+        <h3>📚 Course Registration</h3>
+        <p>Browse and register for courses</p>
+        <a href="{{ url_for('courses') }}" class="btn">Register Courses</a>
+    </div>
+    
+    <div class="dashboard-card">
+        <h3>🎓 Academic Grades</h3>
+        <p>Check your grades and academic history</p>
+        <a href="{{ url_for('grades') }}" class="btn">View Grades</a>
+    </div>
+    
+    <div class="dashboard-card">
+        <h3>📢 Announcements</h3>
+        <p>Latest news from the university</p>
+        <a href="{{ url_for('announcements') }}" class="btn">View Announcements</a>
+    </div>
+</div>
+{% endblock %}
